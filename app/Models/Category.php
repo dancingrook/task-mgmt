@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Auth;
 
 class Category extends Model
 {
@@ -36,7 +37,7 @@ class Category extends Model
 
     public function invitedUsers(): BelongsToMany
     {
-        return $this->belongsToMany(User::class)->where('type', 'invited');
+        return $this->belongsToMany(User::class)->where('type', 'invited')->where('user_id', '!=', Auth::id());
     }
 
 }
